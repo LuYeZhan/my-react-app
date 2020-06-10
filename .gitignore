@@ -1,5 +1,36 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# artefacts
+.eslintcache
+.npm
+.nyc_output
+*.log
+logs/
+node_modules/
+coverage/
+build/
+dist/
+
+# ide
+.bak
+*.swp
+*~
+*#
+
+# spam
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+
+# dotenv
+.env
+
 # dependencies
 /node_modules
 

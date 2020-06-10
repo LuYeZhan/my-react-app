@@ -9,11 +9,20 @@ class App extends Component {
       { name: 'Pepa', age: 29 },
       { name: 'Pepo', age: 31 },
     ],
+    otherState: 'someother value',
   };
 
   // switchNameHandler name example of method naming
   switchNameHandler = () => {
-    console.log('was clicked!');
+    // console.log('was clicked!');
+    // this.state.persons[0].name = 'pepehands'; Dont do this we shoild use this.setState
+    this.setState({
+      persons: [
+        { name: 'Pepeeeee', age: 28 },
+        { name: 'Pepa', age: 29 },
+        { name: 'Pepo', age: 311 },
+      ],
+    });
   };
 
   render() {

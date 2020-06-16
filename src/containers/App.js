@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import classes from './App.css';
-import Person from '../components/Persons/Person/Person';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -15,20 +15,7 @@ class App extends Component {
     showPersons: false,
   };
 
-  // switchNameHandler = (newName) => {
-  //   // console.log('Was clicked!');
-  //   // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
-  //   this.setState({
-  //     persons: [
-  //       { name: newName, age: 28 },
-  //       { name: 'Manu', age: 29 },
-  //       { name: 'Stephanie', age: 27 },
-  //     ],
-  //   });
-  // };
-
   deletePersonHandler = (personIndex) => {
-    // const persons = this.state.persons.slice() = [...this.state.persons];
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({ persons });
@@ -40,8 +27,6 @@ class App extends Component {
     });
 
     const person = { ...this.state.persons[personIndex] };
-    // alternative way of doing it
-    // const person = Object.assign({}, this.state.persons[personIndex])
 
     person.name = event.target.value;
 
@@ -60,115 +45,27 @@ class App extends Component {
 
   render() {
     let persons = null;
-    let btnClasses = [classes.Button];
 
     if (this.state.showPersons) {
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <ErrorBoundary key={person.id}>
-                <Person
-                  click={() => this.deletePersonHandler(index)}
-                  name={person.name}
-                  age={person.age}
-                  changed={(event) => this.nameChangehandler(event, person.id)}
-                />
-              </ErrorBoundary>
-            );
-          })}
-        </div>
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangehandler}
+        />
       );
-
-      btnClasses.push(classes.Red);
     }
-
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red); // classes = ['red']
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold); // classes = ['red', 'bold']
-    }
-
     return (
       <div className={classes.App}>
-        <h1>Hi, I'm a React App</h1>
-        <p className={assignedClasses.join(' ')}>This is really working!</p>
-        <button
-          className={btnClasses.join(' ')}
-          onClick={this.tooglePersonsHandler}
-        >
-          Toggle Persons
-        </button>
+        <Cockpit
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.tooglePersonsHandler}
+        />
         {persons}
       </div>
     );
-    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
 export default App;
-
-// react Hooks approach
-
-// import React, { useState } from 'react';
-// import './App.css';
-// import Person from './Person/Person';
-
-// const app = (props) => {
-//   const [personsState, setPersonsState] = useState({
-//     persons: [
-//       { name: 'Pepe', age: 28 },
-//       { name: 'Pepa', age: 29 },
-//       { name: 'Pepo', age: 31 },
-//     ],
-//   });
-
-//   const [otherState, setOtherState] = useState('some other value');
-
-//   console.log(personsState, otherState);
-
-//   const switchNameHandler = () => {
-//     // console.log('was clicked!');
-//     // this.state.persons[0].name = 'pepehands'; Dont do this we shoild use this.setState
-//     setPersonsState({
-//       persons: [
-//         { name: 'Pepeeeee', age: 28 },
-//         { name: 'Pepa', age: 29 },
-//         { name: 'Pepo', age: 311 },
-//       ],
-//     });
-//   };
-
-//   return (
-//     <div className='App'>
-//       <h1>Hi, I am a react app!</h1>
-//       <p>This is really working!</p>
-//       <button onClick={switchNameHandler}>Switch Name</button>
-//       <Person
-//         name={personsState.persons[0].name}
-//         age={personsState.persons[0].age}
-//       />
-//       <Person
-//         name={personsState.persons[1].name}
-//         age={personsState.persons[1].age}
-//       >
-//         My hobbies: are pepehands
-//       </Person>
-//       <Person
-//         name={personsState.persons[2].name}
-//         age={personsState.persons[2].age}
-//       />
-//     </div>
-//   );
-//   // return React.createElement(
-//   //   'div',
-//   //   { className: 'App' },
-//   //   React.createElement('h1', null, 'Does this work now?')
-//   // );
-// };
-
-// export default app;
-
-// // switchNameHandler name example of method naming

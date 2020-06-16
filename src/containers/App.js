@@ -33,8 +33,8 @@ class App extends Component {
   }
 
   shouldComponentUpdate() {
-    return true;
     console.log(['[App.js] should component update']);
+    return true;
   }
 
   componentDidUpdate() {
